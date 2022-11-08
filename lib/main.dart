@@ -61,6 +61,14 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _smileCounter() {
+    setState(() {
+      if (_counter >= 100) {
+        _counter -= 100;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -99,18 +107,22 @@ class _MyHomePageState extends State<MyHomePage> {
             const Text('姓名:曾程'),
             const Text('学号:20191060222'),
             const Text(
-              'You have pushed the button this many times:',
+              '你已经敲了',
             ),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            const Text(
+              '次木鱼',
+            ),
+            TextButton(onPressed: _smileCounter, child: const Text('抠1佛祖陪你笑'))
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
-        tooltip: 'Increment',
+        tooltip: '敲木鱼',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
