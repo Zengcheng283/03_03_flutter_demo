@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: '电子木鱼V1.0'),
     );
   }
 }
@@ -48,7 +48,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _counter_times = 0;
+  int _counter_gongde = 0;
 
   void _incrementCounter() {
     setState(() {
@@ -57,16 +58,45 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _counter++;
+      if (_counter_times < 100) {
+        _counter_times++;
+      }
+    });
+  }
+
+  void _timeCounter() {
+    setState(() {
+      if (_counter_times >= 100) {
+        _counter_times -= 100;
+        if (_counter_gongde < 100) {
+          _counter_gongde++;
+        }
+      }
     });
   }
 
   void _smileCounter() {
     setState(() {
-      if (_counter >= 100) {
-        _counter -= 100;
+      if (_counter_gongde == 100) {
+        _counter_gongde -= 100;
       }
     });
+  }
+
+  _myLinearProgressIndicator_times() {
+    return LinearProgressIndicator(
+      backgroundColor: Colors.grey[200],
+      valueColor: const AlwaysStoppedAnimation(Colors.blue),
+      value: _counter_times / 100,
+    );
+  }
+
+  _myLinearProgressIndicator_gongde() {
+    return LinearProgressIndicator(
+      backgroundColor: Colors.grey[200],
+      valueColor: const AlwaysStoppedAnimation(Colors.blue),
+      value: _counter_gongde / 100,
+    );
   }
 
   @override
@@ -102,21 +132,62 @@ class _MyHomePageState extends State<MyHomePage> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text('学院:信息学院'),
-            const Text('姓名:曾程'),
-            const Text('学号:20191060222'),
-            const Text(
-              '你已经敲了',
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
+              Text('学院:信息学院    '),
+              Text('姓名:曾程    '),
+              Text('学号:20191060222'),
+            ]),
+            const Text(""),
+            const Text(""),
+            const Text(""),
+            const Text(""),
+            const Text(""),
+            const Text(""),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('次数进度条:'),
+                Container(
+                  margin: const EdgeInsets.all(20),
+                  height: 10,
+                  width: 500,
+                  child: _myLinearProgressIndicator_times(),
+                ),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('功德进度条:'),
+                Container(
+                  margin: const EdgeInsets.all(20),
+                  height: 10,
+                  width: 500,
+                  child: _myLinearProgressIndicator_gongde(),
+                ),
+              ],
             ),
-            const Text(
-              '次木鱼',
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: _timeCounter,
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.blue),
+                      foregroundColor: MaterialStateProperty.all(Colors.black)),
+                  child: const Text('次数-100'),
+                ),
+                const Text("       "),
+                TextButton(
+                  onPressed: _smileCounter,
+                  style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.blue),
+                      foregroundColor: MaterialStateProperty.all(Colors.black)),
+                  child: const Text('功德-100'),
+                )
+              ],
             ),
-            TextButton(onPressed: _smileCounter, child: const Text('抠1佛祖陪你笑'))
           ],
         ),
       ),
