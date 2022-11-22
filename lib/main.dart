@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: '电子木鱼',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: '电子木鱼V1.0'),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -86,7 +87,7 @@ class _MyHomePageState extends State<MyHomePage> {
   _myLinearProgressIndicator_times() {
     return LinearProgressIndicator(
       backgroundColor: Colors.grey[200],
-      valueColor: const AlwaysStoppedAnimation(Colors.blue),
+      valueColor: const AlwaysStoppedAnimation(Colors.grey),
       value: _counter_times / 100,
     );
   }
@@ -94,7 +95,7 @@ class _MyHomePageState extends State<MyHomePage> {
   _myLinearProgressIndicator_gongde() {
     return LinearProgressIndicator(
       backgroundColor: Colors.grey[200],
-      valueColor: const AlwaysStoppedAnimation(Colors.blue),
+      valueColor: const AlwaysStoppedAnimation(Colors.grey),
       value: _counter_gongde / 100,
     );
   }
@@ -112,6 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
+        backgroundColor: Colors.grey,
       ),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
@@ -131,23 +133,44 @@ class _MyHomePageState extends State<MyHomePage> {
           // center the children vertically; the main axis here is the vertical
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
-              Text('学院:信息学院    '),
-              Text('姓名:曾程    '),
-              Text('学号:20191060222'),
-            ]),
-            const Text(""),
-            const Text(""),
-            const Text(""),
-            const Text(""),
-            const Text(""),
-            const Text(""),
+            // Row(mainAxisAlignment: MainAxisAlignment.center, children: const [
+            //   Text(
+            //     '学院:信息学院',
+            //     style: TextStyle(
+            //         fontSize: 20,
+            //         fontWeight: FontWeight.bold,
+            //         color: Colors.white),
+            //   ),
+            //   Text("    "),
+            //   Text(
+            //     '姓名:曾程',
+            //     style: TextStyle(
+            //         fontSize: 20,
+            //         fontWeight: FontWeight.bold,
+            //         color: Colors.white),
+            //   ),
+            //   Text("    "),
+            //   Text(
+            //     '学号:20191060222',
+            //     style: TextStyle(
+            //         fontSize: 20,
+            //         fontWeight: FontWeight.bold,
+            //         color: Colors.white),
+            //   ),
+            // ]),
+            // const Text(""),
+            // const Text(""),
+            // const Text(""),
+            // const Text(""),
+            // const Text(""),
+            // const Text(""),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('次数进度条:'),
+                const Text('次数进度条:', style: TextStyle(color: Colors.white)),
                 Container(
                   margin: const EdgeInsets.all(20),
                   height: 10,
@@ -159,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('功德进度条:'),
+                const Text('功德进度条:', style: TextStyle(color: Colors.white)),
                 Container(
                   margin: const EdgeInsets.all(20),
                   height: 10,
@@ -168,34 +191,118 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
+            const Text(""),
+            const Text(""),
+            const Text(""),
+            const Text(""),
+            const Text(""),
+            const Text(""),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 TextButton(
                   onPressed: _timeCounter,
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.blue),
-                      foregroundColor: MaterialStateProperty.all(Colors.black)),
-                  child: const Text('次数-100'),
+                      backgroundColor: MaterialStateProperty.all(Colors.grey),
+                      foregroundColor: MaterialStateProperty.all(Colors.white)),
+                  child: const Text(
+                    '次数-100',
+                  ),
                 ),
                 const Text("       "),
                 TextButton(
                   onPressed: _smileCounter,
                   style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.blue),
-                      foregroundColor: MaterialStateProperty.all(Colors.black)),
-                  child: const Text('功德-100'),
+                      backgroundColor: MaterialStateProperty.all(Colors.grey),
+                      foregroundColor: MaterialStateProperty.all(Colors.white)),
+                  child: const Text(
+                    '功德-100',
+                  ),
                 )
               ],
             ),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: _incrementCounter,
-        tooltip: '敲木鱼',
-        child: const Icon(Icons.add),
+        backgroundColor: Colors.grey,
+        foregroundColor: Colors.white,
+        label: const Text("敲木鱼"),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+      backgroundColor: Colors.black,
+      bottomNavigationBar: _bottomNavigationBar(),
+      drawer: Drawer(
+        backgroundColor: Colors.black,
+        child: Column(
+          children: const [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.grey,
+              ),
+              child: Center(
+                child: SizedBox(
+                  width: 60.0,
+                  height: 60.0,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.black,
+                    child: Text(
+                      '曾程',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.abc),
+              title: Text(
+                '作者：曾程',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.abc),
+              title: Text(
+                '学院：信息学院',
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            ListTile(
+              leading: Icon(Icons.abc),
+              title: Text(
+                '学号：20191060222',
+                style: TextStyle(color: Colors.white),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  BottomAppBar _bottomNavigationBar() {
+    return BottomAppBar(
+      color: Colors.grey,
+      // shape: const CircularNotchedRectangle(), // 底部导航栏打一个圆形的洞
+      notchMargin: 6.0,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+            icon: const Icon(Icons.home),
+            color: Colors.white,
+            onPressed: () {},
+          ),
+          const SizedBox(), //中间位置空出
+          IconButton(
+            icon: const Icon(Icons.business),
+            color: Colors.white,
+            onPressed: () {},
+          ),
+        ], //均分底部导航栏横向空间
+      ),
     );
   }
 }
