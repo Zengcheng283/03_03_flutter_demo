@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/methods/logic.dart';
 import 'package:flutter_demo/methods/showDialog.dart';
-import '../page/aboutPage.dart';
+import 'aboutPage.dart';
 
 /// 此文件保存底部dock栏项
 
