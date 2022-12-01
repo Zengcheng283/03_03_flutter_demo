@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/logic.dart';
-import 'package:flutter_demo/showDialog.dart';
-import 'aboutPage.dart';
+import 'package:flutter_demo/methods/logic.dart';
+import 'package:flutter_demo/methods/showDialog.dart';
+import '../page/aboutPage.dart';
 
 /// 此文件保存底部dock栏项
 
@@ -17,7 +17,7 @@ BottomAppBar bottomNavigationBar(
           icon: const Icon(Icons.save),
           color: Colors.white, // 按钮颜色为白色
           onPressed: () {
-            String data = saveFile(electronMuyu, context);
+            List data = saveFile(electronMuyu, context);
             showDialog(
                 context: context,
                 builder: (context) => alertDialog(data, context));

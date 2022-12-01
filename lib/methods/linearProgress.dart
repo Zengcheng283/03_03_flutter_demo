@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/logic.dart';
+import 'package:flutter_demo/methods/logic.dart';
 
 /// 此文件保存进度条内容
 

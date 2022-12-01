@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/appBar.dart';
+import 'package:flutter_demo/methods/appBar.dart';
 
 /// 此文件保存关于页内容
 

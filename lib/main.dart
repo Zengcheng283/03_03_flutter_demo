@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/appBar.dart';
-import 'package:flutter_demo/bottomBar.dart';
-import 'package:flutter_demo/leftDocker.dart';
-import 'package:flutter_demo/logic.dart';
-import 'package:flutter_demo/linearProgress.dart';
+import 'package:flutter_demo/methods/actionButton.dart';
+import 'package:flutter_demo/methods/appBar.dart';
+import 'package:flutter_demo/methods/bottomBar.dart';
+import 'package:flutter_demo/methods/leftDocker.dart';
+import 'package:flutter_demo/methods/logic.dart';
+import 'package:flutter_demo/methods/linearProgress.dart';
+import 'package:flutter_demo/methods/textButton.dart';
 
 /// 主函数入口，由此开始运行程序
 
@@ -88,39 +90,16 @@ class _MyHomePageState extends State<MyHomePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  TextButton(
-                    onPressed: _timeCounter,
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.grey),
-                        foregroundColor:
-                            MaterialStateProperty.all(Colors.white)),
-                    child: const Text(
-                      '次数-100',
-                    ),
-                  ),
+                  textButton(_timeCounter, '次数-100'),
                   const Text("       "),
-                  TextButton(
-                    onPressed: _smileCounter,
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.grey),
-                        foregroundColor:
-                            MaterialStateProperty.all(Colors.white)),
-                    child: const Text(
-                      '功德-100',
-                    ),
-                  )
+                  textButton(_smileCounter, '功德-100'),
                 ],
               ),
             ],
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        floatingActionButton: FloatingActionButton.extended(
-          onPressed: _incrementCounter,
-          backgroundColor: Colors.grey,
-          foregroundColor: Colors.white,
-          label: const Text("敲木鱼"),
-        ), // This trailing comma makes auto-formatting nicer for build methods.
+        floatingActionButton: floatingActionButton(_incrementCounter),
         backgroundColor: Colors.black,
         bottomNavigationBar: bottomNavigationBar(context, electronMuyu),
         drawer: drawer());

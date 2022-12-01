@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 /// 程序逻辑存放文件
 
-String decodeSave(ElectronMuyu electronMuyu) {
+void decodeSave(ElectronMuyu electronMuyu) {
   var data =
       '{"counterTimes":${electronMuyu.getTimes()}, "counterGongde":${electronMuyu.getGonde()}}';
   Map<String, dynamic> userData = json.decode(data);
@@ -15,11 +15,11 @@ String decodeSave(ElectronMuyu electronMuyu) {
   } catch (e) {
     file.writeAsString(jsonEncode(userData));
   }
-  return data;
 }
 
-String saveFile(ElectronMuyu electronMuyu, BuildContext context) {
-  String saveData = decodeSave(electronMuyu);
+List saveFile(ElectronMuyu electronMuyu, BuildContext context) {
+  decodeSave(electronMuyu);
+  List saveData = [electronMuyu.getTimes(), electronMuyu.getGonde()];
   return saveData;
   // Directory dir = Directory.current;
   // print(dir);
