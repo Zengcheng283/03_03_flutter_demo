@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/methods/actionButton.dart';
 import 'package:flutter_demo/methods/appBar.dart';
-import 'package:flutter_demo/methods/bottomBar.dart';
-import 'package:flutter_demo/methods/leftDocker.dart';
+import 'package:flutter_demo/page/bottomBarPage.dart';
+import 'package:flutter_demo/page/leftDockerPage.dart';
 import 'package:flutter_demo/methods/logic.dart';
 import 'package:flutter_demo/methods/linearProgress.dart';
 import 'package:flutter_demo/methods/textButton.dart';
