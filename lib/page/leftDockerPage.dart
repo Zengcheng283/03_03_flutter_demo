@@ -1,14 +1,26 @@
+// ignore_for_file: unnecessary_brace_in_string_interps
+
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/page/loginPage.dart';
 
 /// 此文件保存左侧dock栏内容
 
-Drawer drawer() {
+Drawer drawer(bool loginState, BuildContext context) {
+  if (loginState) {
+    return buildDrawer("曾程", "曾程", "信息学院", "20191060222", context);
+  } else {
+    return buildDrawer("未登录", "未登录", "未登录", "未登录", context);
+  }
+}
+
+Drawer buildDrawer(String header, String name, String school, String number,
+    BuildContext context) {
   return Drawer(
     backgroundColor: Colors.black,
     child: Column(
-      children: const [
+      children: [
         DrawerHeader(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.grey,
           ),
           child: Center(
@@ -17,9 +29,17 @@ Drawer drawer() {
               height: 60.0,
               child: CircleAvatar(
                 backgroundColor: Colors.black,
-                child: Text(
-                  '曾程',
-                  style: TextStyle(color: Colors.white),
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => const LoginPage())));
+                  },
+                  child: Text(
+                    header,
+                    style: const TextStyle(color: Colors.white),
+                  ),
                 ),
               ),
             ),
@@ -28,27 +48,31 @@ Drawer drawer() {
 
         /// 以下为dock栏项，暂时无法点击动作
         ListTile(
-          leading: Icon(Icons.abc),
+          leading: const Icon(Icons.abc),
           title: Text(
-            '作者：曾程',
-            style: TextStyle(color: Colors.white),
+            buildText("姓名", name),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
         ListTile(
-          leading: Icon(Icons.abc),
+          leading: const Icon(Icons.abc),
           title: Text(
-            '学院：信息学院',
-            style: TextStyle(color: Colors.white),
+            buildText("学院", school),
+            style: const TextStyle(color: Colors.white),
           ),
         ),
         ListTile(
-          leading: Icon(Icons.abc),
+          leading: const Icon(Icons.abc),
           title: Text(
-            '学号：20191060222',
-            style: TextStyle(color: Colors.white),
+            buildText("学号", number),
+            style: const TextStyle(color: Colors.white),
           ),
         )
       ],
     ),
   );
+}
+
+String buildText(String symbool, String text) {
+  return "${symbool}:${text}";
 }

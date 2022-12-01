@@ -9,6 +9,8 @@ import 'package:flutter_demo/methods/textButton.dart';
 
 /// 主函数入口，由此开始运行程序
 
+bool loginState = false;
+
 void main() {
   runApp(const MyApp());
 }
@@ -20,16 +22,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '电子木鱼',
+      title: '电子木鱼V1.0',
       theme: ThemeData(),
-      home: const MyHomePage(title: '电子木鱼V1.0'), // 关闭debug标签的显示
+      home: const MyHomePage(
+        title: '电子木鱼V1.0',
+        loginState: false,
+      ), // 关闭debug标签的显示
       debugShowCheckedModeBanner: false,
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({super.key, required loginState, required this.title});
   final String title;
 
   @override
@@ -102,6 +107,6 @@ class _MyHomePageState extends State<MyHomePage> {
         floatingActionButton: floatingActionButton(_incrementCounter),
         backgroundColor: Colors.black,
         bottomNavigationBar: bottomNavigationBar(context, electronMuyu),
-        drawer: drawer());
+        drawer: drawer(loginState, context));
   }
 }
