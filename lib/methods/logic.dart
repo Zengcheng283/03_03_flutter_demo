@@ -11,6 +11,11 @@ Future<List> decodeRead() async {
   return listValue;
 }
 
+Future<String> readFile() {
+  final stream = File("./db/learning.txt");
+  return stream.readAsString();
+}
+
 Future<void> decodeSave(ElectronMuyu electronMuyu) async {
   var data = '${electronMuyu.getTimes()},${electronMuyu.getGonde()}';
   // var file = File('./save.json');

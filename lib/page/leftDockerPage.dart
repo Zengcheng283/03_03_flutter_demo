@@ -2,16 +2,17 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/page/aboutPage.dart';
+import 'package:flutter_demo/page/learningPage.dart';
 import 'package:flutter_demo/page/loginPage.dart';
 
 /// 此文件保存左侧dock栏内容
 
 Drawer drawer(bool loginState, BuildContext context) {
-  return buildDrawer("曾程", "电子木鱼", "关于", context);
+  return buildDrawer("曾程", "电子木鱼", "设计与使用", "关于", context);
 }
 
-Drawer buildDrawer(
-    String header, String name, String school, BuildContext context) {
+Drawer buildDrawer(String header, String page1, String page2, String page3,
+    BuildContext context) {
   return Drawer(
     backgroundColor: Colors.black,
     child: Column(
@@ -47,14 +48,27 @@ Drawer buildDrawer(
         ListTile(
           leading: const Icon(Icons.abc),
           title: Text(
-            name,
+            page1,
             style: const TextStyle(color: Colors.white),
           ),
         ),
         ListTile(
           leading: const Icon(Icons.abc),
           title: Text(
-            school,
+            page2,
+            style: const TextStyle(color: Colors.white),
+          ),
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: ((context) => const LearningPage())));
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.abc),
+          title: Text(
+            page3,
             style: const TextStyle(color: Colors.white),
           ),
           onTap: () {

@@ -30,7 +30,7 @@ BottomAppBar bottomNavigationBar(
           icon: const Icon(Icons.sync),
           color: Colors.white, // 按钮颜色为白色
           onPressed: () async {
-            List value = await decodeRead();
+            // List value = await decodeRead();
           },
         ),
       ], //均分底部导航栏横向空间

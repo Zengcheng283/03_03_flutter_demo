@@ -20,32 +20,29 @@ class _AboutPageState extends State<AboutPage> {
     return Scaffold(
       appBar: appBar(title),
       body: Center(
-        // 定义主体内容
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center, // 定义文字在上下居中
-          crossAxisAlignment: CrossAxisAlignment.center, // 定义文字在左右居中
-          children: const [
-            Text(
-              '作者：曾程',
-              style: TextStyle(
-                  fontSize: 20, // 字体大小为20
-                  fontWeight: FontWeight.bold, // 加粗
-                  color: Colors.white), // 文字颜色为白色
+        child: Wrap(
+          spacing: 8.0, // 主轴(水平)方向间距
+          runSpacing: 4.0, // 纵轴（垂直）方向间距
+          alignment: WrapAlignment.center, //沿主轴方向居中
+          children: const <Widget>[
+            Chip(
+              avatar: CircleAvatar(
+                  backgroundColor: Colors.grey,
+                  child: Text('王', style: TextStyle(color: Colors.black))),
+              label: Text('王子易', style: TextStyle(color: Colors.black)),
             ),
-            Text(
-              '学院：信息学院',
-              style: TextStyle(
-                  fontSize: 20, // 字体大小为20
-                  fontWeight: FontWeight.bold, // 加粗
-                  color: Colors.white), // 文字颜色为白色
+            Chip(
+              avatar: CircleAvatar(
+                  backgroundColor: Colors.grey,
+                  child: Text('秦', style: TextStyle(color: Colors.black))),
+              label: Text('秦皎杰', style: TextStyle(color: Colors.black)),
             ),
-            Text(
-              '学号：20191060222',
-              style: TextStyle(
-                  fontSize: 20, // 字体大小为20
-                  fontWeight: FontWeight.bold, // 加粗
-                  color: Colors.white), // 文字颜色为白色
-            )
+            Chip(
+              avatar: CircleAvatar(
+                  backgroundColor: Colors.grey,
+                  child: Text('曾', style: TextStyle(color: Colors.black))),
+              label: Text('曾程', style: TextStyle(color: Colors.black)),
+            ),
           ],
         ),
       ),
