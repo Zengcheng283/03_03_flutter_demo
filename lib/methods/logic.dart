@@ -1,28 +1,33 @@
-import 'dart:convert';
 import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 /// 程序逻辑存放文件
 
-decodeRead() async {
-  String jsonString = await rootBundle.loadString('./save.json');
-  final jsonResult = json.decode(jsonString);
-  print(jsonResult);
+Future<List> decodeRead() async {
+  final file = File('db/save.txt');
+  final stream = await file.readAsString();
+  final listValue = stream.split(",");
+  return listValue;
 }
 
-void decodeSave(ElectronMuyu electronMuyu) {
-  var data =
-      '{"counterTimes":${electronMuyu.getTimes()}, "counterGongde":${electronMuyu.getGonde()}}';
-  Map<String, dynamic> userData = json.decode(data);
-  var file = File('./save.json');
-  // var file = File('/Users/cengcheng/Project/flutter_demo/save.json');
-  try {
-    file.create();
-    file.writeAsString(jsonEncode(userData));
-  } catch (e) {
-    file.writeAsString(jsonEncode(userData));
+Future<void> decodeSave(ElectronMuyu electronMuyu) async {
+  var data = '${electronMuyu.getTimes()},${electronMuyu.getGonde()}';
+  // var file = File('./save.json');
+  var path = Directory("./db");
+  var file = File('./db/save.txt');
+  if (!await path.exists()) {
+    path.create();
+  }
+  if (await file.exists()) {
+    file.writeAsString(data);
+  } else {
+    try {
+      file.create();
+      file.writeAsString(data);
+    } catch (e) {
+      file.writeAsString(data);
+    }
   }
 }
 
@@ -80,6 +85,14 @@ class ElectronMuyu {
   int getTimes() {
     // 获取当前次数，在进度条使用
     return counterTimes;
+  }
+
+  void setTimes(int times) {
+    counterTimes = times;
+  }
+
+  void setGonde(int gonde) {
+    counterGongde = gonde;
   }
 }
 

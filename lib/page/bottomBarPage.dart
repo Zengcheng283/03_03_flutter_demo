@@ -5,6 +5,7 @@ import 'package:flutter_demo/methods/logic.dart';
 import 'package:flutter_demo/methods/showDialog.dart';
 
 /// 此文件保存底部dock栏项
+/// 由于私有类调用，暂时无法使用
 
 BottomAppBar bottomNavigationBar(
     BuildContext context, ElectronMuyu electronMuyu) {
@@ -28,8 +29,8 @@ BottomAppBar bottomNavigationBar(
         IconButton(
           icon: const Icon(Icons.sync),
           color: Colors.white, // 按钮颜色为白色
-          onPressed: () {
-            decodeRead();
+          onPressed: () async {
+            List value = await decodeRead();
           },
         ),
       ], //均分底部导航栏横向空间

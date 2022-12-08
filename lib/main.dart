@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/methods/actionButton.dart';
 import 'package:flutter_demo/methods/appBar.dart';
-import 'package:flutter_demo/page/bottomBarPage.dart';
+import 'package:flutter_demo/methods/showDialog.dart';
 import 'package:flutter_demo/page/leftDockerPage.dart';
 import 'package:flutter_demo/methods/logic.dart';
 import 'package:flutter_demo/methods/linearProgress.dart';
@@ -76,6 +76,15 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _readSave(int times, int gongde) {
+    setState(() {
+      counterTimes = times;
+      counterGongde = gongde;
+      electronMuyu.setGonde(gongde);
+      electronMuyu.setTimes(times);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -139,7 +148,34 @@ class _MyHomePageState extends State<MyHomePage> {
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: floatingActionButton(_incrementCounter),
         backgroundColor: Colors.black,
-        bottomNavigationBar: bottomNavigationBar(context, electronMuyu),
+        bottomNavigationBar: BottomAppBar(
+          color: Colors.grey, // 底色为灰色
+          notchMargin: 6.0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.save),
+                color: Colors.white, // 按钮颜色为白色
+                onPressed: () {
+                  List data = saveFile(electronMuyu, context);
+                  showDialog(
+                      context: context,
+                      builder: (context) => alertDialog(data, context));
+                },
+              ),
+              const SizedBox(), // 中间位置空出
+              IconButton(
+                icon: const Icon(Icons.sync),
+                color: Colors.white, // 按钮颜色为白色
+                onPressed: () async {
+                  List value = await decodeRead();
+                  _readSave(int.parse(value[0]), int.parse(value[1]));
+                },
+              ),
+            ], //均分底部导航栏横向空间
+          ),
+        ),
         drawer: drawer(loginState, context));
   }
 }
