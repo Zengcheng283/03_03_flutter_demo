@@ -1,14 +1,23 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 /// 程序逻辑存放文件
+
+decodeRead() async {
+  String jsonString = await rootBundle.loadString('./save.json');
+  final jsonResult = json.decode(jsonString);
+  print(jsonResult);
+}
 
 void decodeSave(ElectronMuyu electronMuyu) {
   var data =
       '{"counterTimes":${electronMuyu.getTimes()}, "counterGongde":${electronMuyu.getGonde()}}';
   Map<String, dynamic> userData = json.decode(data);
-  var file = File('./save.txt');
+  var file = File('./save.json');
+  // var file = File('/Users/cengcheng/Project/flutter_demo/save.json');
   try {
     file.create();
     file.writeAsString(jsonEncode(userData));
@@ -71,5 +80,22 @@ class ElectronMuyu {
   int getTimes() {
     // 获取当前次数，在进度条使用
     return counterTimes;
+  }
+}
+
+class Audio {
+  AudioPlayer audioPlayer = AudioPlayer();
+
+  Audio(PlayerMode playerMode, ReleaseMode releaseMode) {
+    audioPlayer.setPlayerMode(playerMode);
+    audioPlayer.setReleaseMode(releaseMode);
+  }
+
+  void audioPlay(String path) {
+    audioPlayer.play(AssetSource(path));
+  }
+
+  void audioPause() {
+    audioPlayer.pause();
   }
 }

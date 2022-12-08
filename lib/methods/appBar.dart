@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 /// 此文件保存顶部导航条，显示文字根据传入文字确定

@@ -1,7 +1,8 @@
+import 'package:dio/dio.dart';
+
 // ignore_for_file: file_names, library_private_types_in_public_api, unused_field
 
 import 'package:flutter/material.dart';
-import 'package:flutter_demo/main.dart';
 import 'package:flutter_demo/methods/appBar.dart';
 
 class LoginPage extends StatefulWidget {
@@ -14,6 +15,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey _formKey = GlobalKey<FormState>();
   late String _email, _password;
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
   bool _isObscure = true;
   Color _eyeColor = Colors.grey;
 
@@ -22,27 +25,25 @@ class _LoginPageState extends State<LoginPage> {
     const String title = "登录";
     return Scaffold(
         appBar: appBar(title),
-        body: Container(
-          child: Form(
-            key: _formKey, // 设置globalKey，用于后面获取FormStat
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            child: ListView(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              children: [
-                const SizedBox(height: 20), // 距离顶部一个工具栏的高度
-                // buildTitle(), // Login
-                // buildTitleLine(), // Login下面的下划线
-                // const SizedBox(height: 30),
-                buildEmailTextField(), // 输入邮箱
-                const SizedBox(height: 15),
-                buildPasswordTextField(context), // 输入密码
-                buildForgetPasswordText(context), // 忘记密码
-                const SizedBox(height: 30),
-                buildLoginButton(context), // 登录按钮
-                const SizedBox(height: 20),
-                buildRegisterText(context), // 注册
-              ],
-            ),
+        body: Form(
+          key: _formKey, // 设置globalKey，用于后面获取FormStat
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          child: ListView(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            children: [
+              const SizedBox(height: 20), // 距离顶部一个工具栏的高度
+              // buildTitle(), // Login
+              // buildTitleLine(), // Login下面的下划线
+              // const SizedBox(height: 30),
+              buildEmailTextField(), // 输入邮箱
+              const SizedBox(height: 15),
+              buildPasswordTextField(context), // 输入密码
+              buildForgetPasswordText(context), // 忘记密码
+              const SizedBox(height: 30),
+              buildLoginButton(context), // 登录按钮
+              const SizedBox(height: 20),
+              buildRegisterText(context), // 注册
+            ],
           ),
         ),
         backgroundColor: Colors.black); // 底色为黑色
@@ -86,13 +87,16 @@ class _LoginPageState extends State<LoginPage> {
           onPressed: () {
             // 表单校验通过才会继续执行
             if ((_formKey.currentState as FormState).validate()) {
-              (_formKey.currentState as FormState).save();
-              Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const MyHomePage(
-                          loginState: true, title: '电子木鱼V1.0')),
-                  (route) => false);
+              Dio().post("http://127.0.0.1:60000/login", data: {
+                "user": _emailController.text,
+                "psw": _passwordController.text
+              });
+              // Navigator.pushAndRemoveUntil(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (context) => const MyHomePage(
+              //             loginState: true, title: '电子木鱼V1.0')),
+              //     (route) => false);
             }
           },
         ),
@@ -118,6 +122,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget buildPasswordTextField(BuildContext context) {
     return TextFormField(
+        controller: _passwordController,
         style: const TextStyle(color: Colors.black),
         obscureText: _isObscure, // 是否显示文字
         onSaved: (v) => _password = v!,
@@ -149,6 +154,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget buildEmailTextField() {
     return TextFormField(
+      controller: _emailController,
       style: const TextStyle(color: Colors.black),
       decoration: const InputDecoration(
           labelText: 'Email Address',
@@ -161,6 +167,7 @@ class _LoginPageState extends State<LoginPage> {
         if (!emailReg.hasMatch(v!)) {
           return '请输入正确的邮箱地址';
         }
+
         return null;
       },
       onSaved: (v) => _email = v!,

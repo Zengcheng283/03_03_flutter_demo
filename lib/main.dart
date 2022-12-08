@@ -6,6 +6,7 @@ import 'package:flutter_demo/page/leftDockerPage.dart';
 import 'package:flutter_demo/methods/logic.dart';
 import 'package:flutter_demo/methods/linearProgress.dart';
 import 'package:flutter_demo/methods/textButton.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 /// 主函数入口，由此开始运行程序
 
@@ -45,6 +46,9 @@ class _MyHomePageState extends State<MyHomePage> {
   ElectronMuyu electronMuyu = ElectronMuyu(0, 0);
   int counterTimes = 0;
   int counterGongde = 0;
+  bool _isPlaying = false;
+  String text = "播放";
+  Audio audio = Audio(PlayerMode.lowLatency, ReleaseMode.loop);
 
   void _incrementCounter() {
     setState(() {
@@ -79,29 +83,58 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: appBar(widget.title), // 定义顶部栏
         body: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.start, // 定义上下在开始位置，即顶部
-            crossAxisAlignment: CrossAxisAlignment.center, // 定义左右在中间位置
-            children: [
-              textLinearProgressIndicatorTimes(electronMuyu),
-              Container(
-                // 设定进度条与进度条之间隔开20px
-                height: 20,
-              ),
-              textLinearProgressIndicatorGongde(electronMuyu),
-              Container(
-                // 设定进度条与按钮隔开50px
-                height: 50,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  textButton(_timeCounter, '次数-100'),
-                  const Text("       "),
-                  textButton(_smileCounter, '功德-100'),
-                ],
-              ),
-            ],
-          ),
+              mainAxisAlignment: MainAxisAlignment.start, // 定义上下在开始位置，即顶部
+              crossAxisAlignment: CrossAxisAlignment.center, // 定义左右在中间位置
+              children: [
+                textLinearProgressIndicatorTimes(electronMuyu),
+                Container(
+                  // 设定进度条与进度条之间隔开20px
+                  height: 20,
+                ),
+                textLinearProgressIndicatorGongde(electronMuyu),
+                Container(
+                  // 设定进度条与按钮隔开50px
+                  height: 50,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    textButton(_timeCounter, '次数-100'),
+                    const Text("       "),
+                    textButton(_smileCounter, '功德-100'),
+                  ],
+                ),
+                const Spacer(), // 将播放和暂停按钮放置于底部末尾位置
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    IconButton(
+                      padding: const EdgeInsets.all(5.0),
+                      onPressed: (() {
+                        _isPlaying = !_isPlaying;
+                        setState(() {
+                          if (_isPlaying) {
+                            audio.audioPlay("background.mp3");
+                          } else {
+                            audio.audioPause();
+                          }
+                        });
+                      }),
+                      color: Colors.white,
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.grey),
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.white)),
+                      icon: _isPlaying
+                          ? const Icon(Icons.pause)
+                          : const Icon(Icons.play_arrow),
+                    ),
+                    const Text("    ")
+                  ],
+                ),
+                const Text("")
+              ]),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         floatingActionButton: floatingActionButton(_incrementCounter),

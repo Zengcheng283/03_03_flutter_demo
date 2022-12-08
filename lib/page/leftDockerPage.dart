@@ -1,20 +1,17 @@
-// ignore_for_file: unnecessary_brace_in_string_interps
+// ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/page/aboutPage.dart';
 import 'package:flutter_demo/page/loginPage.dart';
 
 /// 此文件保存左侧dock栏内容
 
 Drawer drawer(bool loginState, BuildContext context) {
-  if (loginState) {
-    return buildDrawer("曾程", "曾程", "信息学院", "20191060222", context);
-  } else {
-    return buildDrawer("未登录", "未登录", "未登录", "未登录", context);
-  }
+  return buildDrawer("曾程", "电子木鱼", "关于", context);
 }
 
-Drawer buildDrawer(String header, String name, String school, String number,
-    BuildContext context) {
+Drawer buildDrawer(
+    String header, String name, String school, BuildContext context) {
   return Drawer(
     backgroundColor: Colors.black,
     child: Column(
@@ -50,23 +47,20 @@ Drawer buildDrawer(String header, String name, String school, String number,
         ListTile(
           leading: const Icon(Icons.abc),
           title: Text(
-            buildText("姓名", name),
+            name,
             style: const TextStyle(color: Colors.white),
           ),
         ),
         ListTile(
           leading: const Icon(Icons.abc),
           title: Text(
-            buildText("学院", school),
+            school,
             style: const TextStyle(color: Colors.white),
           ),
-        ),
-        ListTile(
-          leading: const Icon(Icons.abc),
-          title: Text(
-            buildText("学号", number),
-            style: const TextStyle(color: Colors.white),
-          ),
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: ((context) => const AboutPage())));
+          },
         )
       ],
     ),
@@ -74,5 +68,5 @@ Drawer buildDrawer(String header, String name, String school, String number,
 }
 
 String buildText(String symbool, String text) {
-  return "${symbool}:${text}";
+  return "$symbool:$text";
 }

@@ -1,7 +1,8 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/methods/logic.dart';
 import 'package:flutter_demo/methods/showDialog.dart';
-import 'aboutPage.dart';
 
 /// 此文件保存底部dock栏项
 
@@ -25,14 +26,10 @@ BottomAppBar bottomNavigationBar(
         ),
         const SizedBox(), // 中间位置空出
         IconButton(
-          icon: const Icon(Icons.settings),
+          icon: const Icon(Icons.sync),
           color: Colors.white, // 按钮颜色为白色
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: ((context) =>
-                        const AboutPage()))); // 路由，连接到关于页，同时将当前页面放入栈保存
+            decodeRead();
           },
         ),
       ], //均分底部导航栏横向空间
