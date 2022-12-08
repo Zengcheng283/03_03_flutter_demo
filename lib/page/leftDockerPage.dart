@@ -46,7 +46,7 @@ Drawer buildDrawer(String header, String page1, String page2, String page3,
 
         /// 以下为dock栏项，暂时无法点击动作
         ListTile(
-          leading: const Icon(Icons.abc),
+          leading: const Icon(Icons.app_shortcut, color: Colors.white),
           title: Text(
             page1,
             style: const TextStyle(color: Colors.white),
@@ -54,7 +54,7 @@ Drawer buildDrawer(String header, String page1, String page2, String page3,
           onTap: () {},
         ),
         ListTile(
-          leading: const Icon(Icons.abc),
+          leading: const Icon(Icons.design_services, color: Colors.white),
           title: Text(
             page2,
             style: const TextStyle(color: Colors.white),
@@ -67,7 +67,7 @@ Drawer buildDrawer(String header, String page1, String page2, String page3,
           },
         ),
         ListTile(
-          leading: const Icon(Icons.abc),
+          leading: const Icon(Icons.settings, color: Colors.white),
           title: Text(
             page3,
             style: const TextStyle(color: Colors.white),
