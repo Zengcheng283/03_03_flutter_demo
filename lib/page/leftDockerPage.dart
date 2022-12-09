@@ -1,18 +1,21 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/methods/logic.dart';
 import 'package:flutter_demo/page/aboutPage.dart';
 import 'package:flutter_demo/page/learningPage.dart';
+
+import 'loginPage.dart';
 // import 'package:flutter_demo/page/loginPage.dart';
 
 /// 此文件保存左侧dock栏内容
 
-Drawer drawer(bool loginState, BuildContext context) {
-  return buildDrawer("未命名", "电子木鱼V1.0", "设计与使用", "关于", context);
+Drawer drawer(LoginState loginState, BuildContext context) {
+  return buildDrawer("未命名", "电子木鱼V1.0", "设计与使用", "关于", context, loginState);
 }
 
 Drawer buildDrawer(String header, String page1, String page2, String page3,
-    BuildContext context) {
+    BuildContext context, LoginState loginState) {
   return Drawer(
     backgroundColor: Colors.black,
     child: Column(
@@ -29,13 +32,16 @@ Drawer buildDrawer(String header, String page1, String page2, String page3,
                 backgroundColor: Colors.black,
                 child: TextButton(
                   onPressed: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: ((context) => const LoginPage())));
+                    if (loginState.getLoginState()) {
+                    } else {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => const LoginPage())));
+                    }
                   },
                   child: Text(
-                    header,
+                    loginState.getLoginState() ? "未登录" : header,
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),

@@ -10,7 +10,7 @@ import 'package:audioplayers/audioplayers.dart';
 
 /// 主函数入口，由此开始运行程序
 
-bool loginState = false;
+LoginState loginState = LoginState(false);
 
 void main() {
   runApp(const MyApp());

@@ -1,9 +1,10 @@
-import 'package:dio/dio.dart';
-
 // ignore_for_file: file_names, library_private_types_in_public_api, unused_field
 
 import 'package:flutter/material.dart';
+import 'package:flutter_demo/main.dart';
 import 'package:flutter_demo/methods/appBar.dart';
+import 'package:flutter_demo/methods/logic.dart';
+import 'package:flutter_demo/methods/showDialog.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -84,13 +85,28 @@ class _LoginPageState extends State<LoginPage> {
               shape: MaterialStateProperty.all(const StadiumBorder(
                   side: BorderSide(style: BorderStyle.none)))),
           child: const Text('Login', style: TextStyle(color: Colors.white)),
-          onPressed: () {
+          onPressed: () async {
             // 表单校验通过才会继续执行
             if ((_formKey.currentState as FormState).validate()) {
-              Dio().post("http://127.0.0.1:60000/login", data: {
-                "user": _emailController.text,
-                "psw": _passwordController.text
-              });
+              // Dio().post("http://127.0.0.1:60000/login", data: {
+              //   "user": _emailController.text,
+              //   "psw": _passwordController.text
+              // });
+              // ignore: unrelated_type_equality_checks
+              var res = await login(
+                  int.parse(_emailController.text), _passwordController.text);
+
+              if (res == "success") {
+                showDialog(
+                    context: context,
+                    builder: (context) => nomalDialog("登录成功", context));
+                loginState.setLoginState(true);
+              } else {
+                showDialog(
+                    context: context,
+                    builder: (context) => nomalDialog("登录失败", context));
+              }
+
               // Navigator.pushAndRemoveUntil(
               //     context,
               //     MaterialPageRoute(
@@ -157,18 +173,22 @@ class _LoginPageState extends State<LoginPage> {
       controller: _emailController,
       style: const TextStyle(color: Colors.black),
       decoration: const InputDecoration(
-          labelText: 'Email Address',
+          labelText: '用户ID',
           filled: true,
           fillColor: Colors.white,
           labelStyle: TextStyle(color: Colors.black)),
       validator: (v) {
-        var emailReg = RegExp(
-            r"[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?");
-        if (!emailReg.hasMatch(v!)) {
-          return '请输入正确的邮箱地址';
+        if (v!.isEmpty) {
+          return '请输入密码';
         }
-
         return null;
+        // (v) {
+        //   var emailReg = RegExp(
+        //       r"[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?");
+        //   if (!emailReg.hasMatch(v!)) {
+        //     return '请输入正确的邮箱地址';
+        //   }
+        // return null;
       },
       onSaved: (v) => _email = v!,
     );

@@ -1,8 +1,25 @@
 import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 /// 程序逻辑存放文件
+
+Future<String> login(int userid, String pwd) async {
+  var dio = Dio();
+  dio.options.baseUrl = "http://127.0.0.1:60000";
+  dio.options.connectTimeout = 5000; //5s
+  dio.options.receiveTimeout = 5000;
+  dio.options.headers["Access-Control-Allow-Origin"] = "*";
+  dio.options.headers["Access-Control-Allow-Credentials"] = true;
+  dio.options.headers["Access-Control-Allow-Headers"] =
+      "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale";
+  dio.options.headers["Access-Control-Allow-Methods"] =
+      "GET, HEAD, POST, OPTIONS";
+  Response response =
+      await dio.post("/login", data: {"userId": userid, "pwd": pwd});
+  return response.data["response"];
+}
 
 Future<List> decodeRead() async {
   final file = File('db/save.txt');
@@ -115,5 +132,19 @@ class Audio {
 
   void audioPause() {
     audioPlayer.pause();
+  }
+}
+
+class LoginState {
+  late bool loginState;
+
+  LoginState(this.loginState);
+
+  void setLoginState(bool state) {
+    loginState = state;
+  }
+
+  bool getLoginState() {
+    return loginState;
   }
 }
