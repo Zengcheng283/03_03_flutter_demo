@@ -1,11 +1,9 @@
-import 'dart:io';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 /// 程序逻辑存放文件
 
-Future<String> login(int userid, String pwd) async {
+Future<String> login(String userid, String pwd) async {
   var dio = Dio();
   dio.options.baseUrl = "http://127.0.0.1:60000";
   dio.options.connectTimeout = 5000; //5s
@@ -21,45 +19,93 @@ Future<String> login(int userid, String pwd) async {
   return response.data["response"];
 }
 
-Future<List> decodeRead() async {
-  final file = File('db/save.txt');
-  final stream = await file.readAsString();
-  final listValue = stream.split(",");
-  return listValue;
+Future<String> register(String userid, String pwd) async {
+  var dio = Dio();
+  dio.options.baseUrl = "http://127.0.0.1:60000";
+  dio.options.connectTimeout = 5000; //5s
+  dio.options.receiveTimeout = 5000;
+  dio.options.headers["Access-Control-Allow-Origin"] = "*";
+  dio.options.headers["Access-Control-Allow-Credentials"] = true;
+  dio.options.headers["Access-Control-Allow-Headers"] =
+      "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale";
+  dio.options.headers["Access-Control-Allow-Methods"] =
+      "GET, HEAD, POST, OPTIONS";
+  Response response =
+      await dio.post("/register", data: {"userId": userid, "pwd": pwd});
+  return response.data["response"];
 }
 
-Future<String> readFile() {
-  final stream = File("./db/learning.txt");
-  return stream.readAsString();
+Future<String> saveData(int times, int gongde) async {
+  var dio = Dio();
+  dio.options.baseUrl = "http://127.0.0.1:60000";
+  dio.options.connectTimeout = 5000; //5s
+  dio.options.receiveTimeout = 5000;
+  dio.options.headers["Access-Control-Allow-Origin"] = "*";
+  dio.options.headers["Access-Control-Allow-Credentials"] = true;
+  dio.options.headers["Access-Control-Allow-Headers"] =
+      "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale";
+  dio.options.headers["Access-Control-Allow-Methods"] =
+      "GET, HEAD, POST, OPTIONS";
+  Response response =
+      await dio.post("/save", data: {"times": times, "gongde": gongde});
+  return response.data["response"];
 }
 
-Future<void> decodeSave(ElectronMuyu electronMuyu) async {
-  var data = '${electronMuyu.getTimes()},${electronMuyu.getGonde()}';
-  // var file = File('./save.json');
-  var path = Directory("./db");
-  var file = File('./db/save.txt');
-  if (!await path.exists()) {
-    path.create();
-  }
-  if (await file.exists()) {
-    file.writeAsString(data);
-  } else {
-    try {
-      file.create();
-      file.writeAsString(data);
-    } catch (e) {
-      file.writeAsString(data);
-    }
-  }
+Future<List> getData() async {
+  var dio = Dio();
+  dio.options.baseUrl = "http://127.0.0.1:60000";
+  dio.options.connectTimeout = 5000; //5s
+  dio.options.receiveTimeout = 5000;
+  dio.options.headers["Access-Control-Allow-Origin"] = "*";
+  dio.options.headers["Access-Control-Allow-Credentials"] = true;
+  dio.options.headers["Access-Control-Allow-Headers"] =
+      "Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale";
+  dio.options.headers["Access-Control-Allow-Methods"] =
+      "GET, HEAD, POST, OPTIONS";
+  Response response = await dio.get("/get");
+  List rebackData = [response.data["times"], response.data["gongde"]];
+  return rebackData;
 }
 
-List saveFile(ElectronMuyu electronMuyu, BuildContext context) {
-  decodeSave(electronMuyu);
-  List saveData = [electronMuyu.getTimes(), electronMuyu.getGonde()];
-  return saveData;
-  // Directory dir = Directory.current;
-  // print(dir);
-}
+// Future<List> decodeRead() async {
+//   final file = File('db/save.txt');
+//   final stream = await file.readAsString();
+//   final listValue = stream.split(",");
+//   return listValue;
+// }
+
+// Future<String> readFile() {
+//   final stream = File("./db/learning.txt");
+//   return stream.readAsString();
+// }
+
+// Future<void> decodeSave(ElectronMuyu electronMuyu) async {
+//   var data = '${electronMuyu.getTimes()},${electronMuyu.getGonde()}';
+//   // var file = File('./save.json');
+//   var path = Directory("./db");
+//   var file = File('./db/save.txt');
+//   if (!await path.exists()) {
+//     path.create();
+//   }
+//   if (await file.exists()) {
+//     file.writeAsString(data);
+//   } else {
+//     try {
+//       file.create();
+//       file.writeAsString(data);
+//     } catch (e) {
+//       file.writeAsString(data);
+//     }
+//   }
+// }
+
+// List saveFile(ElectronMuyu electronMuyu, BuildContext context) {
+//   decodeSave(electronMuyu);
+//   List saveData = [electronMuyu.getTimes(), electronMuyu.getGonde()];
+//   return saveData;
+//   // Directory dir = Directory.current;
+//   // print(dir);
+// }
 
 class ElectronMuyu {
   // 定义电子木鱼所使用到的变量：功德值和敲次数
@@ -137,6 +183,7 @@ class Audio {
 
 class LoginState {
   late bool loginState;
+  late String loginName = "未登录";
 
   LoginState(this.loginState);
 
@@ -146,5 +193,17 @@ class LoginState {
 
   bool getLoginState() {
     return loginState;
+  }
+
+  void setLoginName(String name) {
+    loginName = name;
+  }
+
+  String getLoginName() {
+    if (loginName.length > 3) {
+      return loginName.substring(0, 2);
+    } else {
+      return loginName;
+    }
   }
 }

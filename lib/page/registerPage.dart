@@ -7,16 +7,16 @@ import 'package:flutter_demo/main.dart';
 import 'package:flutter_demo/methods/appBar.dart';
 import 'package:flutter_demo/methods/logic.dart';
 import 'package:flutter_demo/methods/showDialog.dart';
-import 'package:flutter_demo/page/registerPage.dart';
+import 'package:flutter_demo/page/loginPage.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegisterPage createState() => _RegisterPage();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegisterPage extends State<RegisterPage> {
   final GlobalKey _formKey = GlobalKey<FormState>();
   late String _email, _password;
   final TextEditingController _emailController = TextEditingController();
@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    const String title = "登录";
+    const String title = "注册";
     return Scaffold(
         appBar: appBar(title),
         body: Form(
@@ -42,11 +42,11 @@ class _LoginPageState extends State<LoginPage> {
               buildEmailTextField(), // 输入邮箱
               const SizedBox(height: 15),
               buildPasswordTextField(context), // 输入密码
-              buildForgetPasswordText(context), // 忘记密码
+              // buildForgetPasswordText(context), // 忘记密码
               const SizedBox(height: 30),
               buildLoginButton(context), // 登录按钮
               const SizedBox(height: 20),
-              buildRegisterText(context), // 注册
+              // buildRegisterText(context), // 注册
             ],
           ),
         ),
@@ -67,10 +67,7 @@ class _LoginPageState extends State<LoginPage> {
             GestureDetector(
               child: const Text('点击注册', style: TextStyle(color: Colors.white)),
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: ((context) => const RegisterPage())));
+                Null;
               },
             )
           ],
@@ -90,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
               // 设置圆角
               shape: MaterialStateProperty.all(const StadiumBorder(
                   side: BorderSide(style: BorderStyle.none)))),
-          child: const Text('Login', style: TextStyle(color: Colors.white)),
+          child: const Text('注册', style: TextStyle(color: Colors.white)),
           onPressed: () async {
             // 表单校验通过才会继续执行
             if ((_formKey.currentState as FormState).validate()) {
@@ -99,27 +96,31 @@ class _LoginPageState extends State<LoginPage> {
               //   "psw": _passwordController.text
               // });
               // ignore: unrelated_type_equality_checks
-              var res =
-                  await login(_emailController.text, _passwordController.text);
+              var res = await register(
+                  _emailController.text, _passwordController.text);
 
               if (res == "success") {
                 showDialog(
                     context: context,
-                    builder: (context) => nomalDialog("登录", "登录成功", context));
+                    builder: (context) => nomalDialog("注册", "注册成功", context));
                 loginState.setLoginState(true);
-                loginState.setLoginName(_emailController.text);
                 // ignore: use_build_context_synchronously
                 Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            const MyHomePage(title: '电子木鱼V1.0')),
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
                     (route) => false);
               } else {
                 showDialog(
                     context: context,
-                    builder: (context) => nomalDialog("登录", "登录失败", context));
+                    builder: (context) => nomalDialog("注册", "注册失败", context));
               }
+
+              // Navigator.pushAndRemoveUntil(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (context) => const MyHomePage(
+              //             loginState: true, title: '电子木鱼V1.0')),
+              //     (route) => false);
             }
           },
         ),

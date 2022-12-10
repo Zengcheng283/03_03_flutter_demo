@@ -18,11 +18,12 @@ BottomAppBar bottomNavigationBar(
         IconButton(
           icon: const Icon(Icons.save),
           color: Colors.white, // 按钮颜色为白色
-          onPressed: () {
-            List data = saveFile(electronMuyu, context);
+          onPressed: () async {
+            String response = await saveData(
+                electronMuyu.getTimes(), electronMuyu.getGonde());
             showDialog(
                 context: context,
-                builder: (context) => alertDialog(data, context));
+                builder: (context) => nomalDialog("保存", response, context));
           },
         ),
         const SizedBox(), // 中间位置空出

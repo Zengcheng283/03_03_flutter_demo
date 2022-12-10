@@ -27,7 +27,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(),
       home: const MyHomePage(
         title: '电子木鱼V1.0',
-        loginState: false,
       ), // 关闭debug标签的显示
       debugShowCheckedModeBanner: false,
     );
@@ -35,7 +34,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required loginState, required this.title});
+  const MyHomePage({super.key, required this.title});
   final String title;
 
   @override
@@ -157,11 +156,13 @@ class _MyHomePageState extends State<MyHomePage> {
               IconButton(
                 icon: const Icon(Icons.save),
                 color: Colors.white, // 按钮颜色为白色
-                onPressed: () {
-                  List data = saveFile(electronMuyu, context);
+                onPressed: () async {
+                  String response = await saveData(
+                      electronMuyu.getTimes(), electronMuyu.getGonde());
                   showDialog(
                       context: context,
-                      builder: (context) => alertDialog(data, context));
+                      builder: (context) =>
+                          nomalDialog("保存", response, context));
                 },
               ),
               const SizedBox(), // 中间位置空出
@@ -169,8 +170,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 icon: const Icon(Icons.sync),
                 color: Colors.white, // 按钮颜色为白色
                 onPressed: () async {
-                  List value = await decodeRead();
-                  _readSave(int.parse(value[0]), int.parse(value[1]));
+                  List value = await getData();
+                  _readSave(value[0], value[1]);
                 },
               ),
             ], //均分底部导航栏横向空间

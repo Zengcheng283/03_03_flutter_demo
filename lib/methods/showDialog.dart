@@ -18,10 +18,10 @@ AlertDialog alertDialog(List data, BuildContext context) {
   );
 }
 
-AlertDialog nomalDialog(String data, BuildContext context) {
+AlertDialog nomalDialog(String title, String data, BuildContext context) {
   String stream = data;
   return AlertDialog(
-    title: const Text('登录'),
+    title: Text(title),
     content: Text(stream),
     actions: <Widget>[
       TextButton(

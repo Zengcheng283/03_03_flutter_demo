@@ -41,7 +41,7 @@ Drawer buildDrawer(String header, String page1, String page2, String page3,
                     }
                   },
                   child: Text(
-                    loginState.getLoginState() ? "未登录" : header,
+                    loginState.getLoginName(),
                     style: const TextStyle(color: Colors.white),
                   ),
                 ),
