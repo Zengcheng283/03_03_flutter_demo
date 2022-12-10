@@ -1,16 +1,40 @@
 # flutter_demo
 
-A new Flutter project.
+How to run at Web like Chrome
 
-## Getting Started
+```bash
+python3 server/core.py 
+```
+if you see following words, which means the server is running.
 
-This project is a starting point for a Flutter application.
+```bash
+* Serving Flask app 'core'
+ * Debug mode: off
+WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:60000
+ * Running on http://192.168.50.196:60000
+Press CTRL+C to quit
+```
 
-A few resources to get you started if this is your first Flutter project:
+Then, print following in cmd
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+```bash
+cd xxx/FilePath
+export FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn
+flutter run -d chrome
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+you will see, and your chrome will open and you will see the application.
+
+```bash
+Launching lib/main.dart on Chrome in debug mode...
+Waiting for connection from debug service on Chrome...              9.6s
+This app is linked to the debug service: ws://127.0.0.1:63431/xxxx
+Debug service listening on ws://127.0.0.1:63431/xxxx
+
+💪 Running with sound null safety 💪
+
+🔥  To hot restart changes while running, press "r" or "R".
+For a more detailed help message, press "h". To quit, press "q".
+```
