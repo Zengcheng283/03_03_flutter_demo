@@ -44,7 +44,7 @@ class _RegisterPage extends State<RegisterPage> {
               buildPasswordTextField(context), // 输入密码
               // buildForgetPasswordText(context), // 忘记密码
               const SizedBox(height: 30),
-              buildLoginButton(context), // 登录按钮
+              buildLoginButton(context), // 注册按钮
               const SizedBox(height: 20),
               // buildRegisterText(context), // 注册
             ],

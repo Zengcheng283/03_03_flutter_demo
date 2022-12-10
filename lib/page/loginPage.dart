@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
               buildEmailTextField(), // 输入邮箱
               const SizedBox(height: 15),
               buildPasswordTextField(context), // 输入密码
-              buildForgetPasswordText(context), // 忘记密码
+              // buildForgetPasswordText(context), // 忘记密码
               const SizedBox(height: 30),
               buildLoginButton(context), // 登录按钮
               const SizedBox(height: 20),
@@ -156,7 +156,7 @@ class _LoginPageState extends State<LoginPage> {
           return null;
         },
         decoration: InputDecoration(
-            labelText: "Password",
+            labelText: "密码",
             labelStyle: const TextStyle(color: Colors.black),
             filled: true,
             fillColor: Colors.white,
@@ -218,7 +218,7 @@ class _LoginPageState extends State<LoginPage> {
     return const Padding(
         padding: EdgeInsets.all(8),
         child: Text(
-          'Login',
+          '登录',
           style: TextStyle(color: Colors.white),
         ));
   }
