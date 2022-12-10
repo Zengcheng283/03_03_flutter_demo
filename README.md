@@ -9,11 +9,11 @@ if you see following words, which means the server is running.
 
 ```bash
 * Serving Flask app 'core'
- * Debug mode: off
+* Debug mode: off
 WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
- * Running on all addresses (0.0.0.0)
- * Running on http://127.0.0.1:60000
- * Running on http://192.168.50.196:60000
+* Running on all addresses (0.0.0.0)
+* Running on http://127.0.0.1:60000
+* Running on http://192.168.xx.xx:60000
 Press CTRL+C to quit
 ```
 
