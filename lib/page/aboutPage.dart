@@ -43,6 +43,12 @@ class _AboutPageState extends State<AboutPage> {
                   child: Text('曾', style: TextStyle(color: Colors.black))),
               label: Text('曾程', style: TextStyle(color: Colors.black)),
             ),
+            Chip(
+              avatar: CircleAvatar(
+                  backgroundColor: Colors.grey,
+                  child: Text('丁', style: TextStyle(color: Colors.black))),
+              label: Text('丁伟遥', style: TextStyle(color: Colors.black)),
+            ),
           ],
         ),
       ),

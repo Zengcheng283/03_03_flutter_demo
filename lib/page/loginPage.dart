@@ -1,7 +1,4 @@
 // ignore_for_file: file_names, library_private_types_in_public_api, unused_field
-
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/main.dart';
 import 'package:flutter_demo/methods/appBar.dart';

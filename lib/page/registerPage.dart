@@ -1,7 +1,4 @@
 // ignore_for_file: file_names, library_private_types_in_public_api, unused_field
-
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/main.dart';
 import 'package:flutter_demo/methods/appBar.dart';
@@ -157,7 +154,7 @@ class _RegisterPage extends State<RegisterPage> {
           return null;
         },
         decoration: InputDecoration(
-            labelText: "Password",
+            labelText: "密码",
             labelStyle: const TextStyle(color: Colors.black),
             filled: true,
             fillColor: Colors.white,
