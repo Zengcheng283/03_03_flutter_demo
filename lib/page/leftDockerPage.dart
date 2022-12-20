@@ -5,6 +5,7 @@ import 'package:flutter_demo/methods/logic.dart';
 import 'package:flutter_demo/page/aboutPage.dart';
 import 'package:flutter_demo/page/learningPage.dart';
 
+import '../main.dart';
 import 'loginPage.dart';
 // import 'package:flutter_demo/page/loginPage.dart';
 
@@ -82,6 +83,26 @@ Drawer buildDrawer(String header, String page1, String page2, String page3,
             Navigator.push(context,
                 MaterialPageRoute(builder: ((context) => const AboutPage())));
           },
+        ),
+        ListTile(
+          leading: const Icon(Icons.clear, color: Colors.white),
+          title: const Text(
+            "退出账号",
+            style: TextStyle(color: Colors.white),
+          ),
+          onTap: () {
+            if (loginState.getLoginState()) {
+              loginState.setLoginName("未登录");
+              loginState.setLoginState(false);
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          const MyHomePage(title: '电子木鱼V1.0')),
+                  (route) => false);
+            }
+          },
+          enabled: loginState.getLoginState(),
         )
       ],
     ),
