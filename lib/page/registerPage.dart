@@ -15,7 +15,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPage extends State<RegisterPage> {
   final GlobalKey _formKey = GlobalKey<FormState>();
-  late String _email, _password;
+  late String _userId, _password;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isObscure = true;
@@ -33,44 +33,16 @@ class _RegisterPage extends State<RegisterPage> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             children: [
               const SizedBox(height: 20), // 距离顶部一个工具栏的高度
-              // buildTitle(), // Login
-              // buildTitleLine(), // Login下面的下划线
-              // const SizedBox(height: 30),
-              buildEmailTextField(), // 输入邮箱
+              buildUserIdTextField(), // 输入用户名
               const SizedBox(height: 15),
               buildPasswordTextField(context), // 输入密码
-              // buildForgetPasswordText(context), // 忘记密码
               const SizedBox(height: 30),
               buildLoginButton(context), // 注册按钮
               const SizedBox(height: 20),
-              // buildRegisterText(context), // 注册
             ],
           ),
         ),
         backgroundColor: Colors.black); // 底色为黑色
-  }
-
-  Widget buildRegisterText(context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              '没有账号?',
-              style: TextStyle(color: Colors.grey),
-            ),
-            GestureDetector(
-              child: const Text('点击注册', style: TextStyle(color: Colors.white)),
-              onTap: () {
-                Null;
-              },
-            )
-          ],
-        ),
-      ),
-    );
   }
 
   Widget buildLoginButton(BuildContext context) {
@@ -88,11 +60,6 @@ class _RegisterPage extends State<RegisterPage> {
           onPressed: () async {
             // 表单校验通过才会继续执行
             if ((_formKey.currentState as FormState).validate()) {
-              // Dio().post("http://127.0.0.1:60000/login", data: {
-              //   "user": _emailController.text,
-              //   "psw": _passwordController.text
-              // });
-              // ignore: unrelated_type_equality_checks
               var res = await register(
                   _emailController.text, _passwordController.text);
 
@@ -111,31 +78,8 @@ class _RegisterPage extends State<RegisterPage> {
                     context: context,
                     builder: (context) => nomalDialog("注册", "注册失败", context));
               }
-
-              // Navigator.pushAndRemoveUntil(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) => const MyHomePage(
-              //             loginState: true, title: '电子木鱼V1.0')),
-              //     (route) => false);
             }
           },
-        ),
-      ),
-    );
-  }
-
-  Widget buildForgetPasswordText(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8),
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: TextButton(
-          onPressed: () {
-            Null;
-          },
-          child: const Text("忘记密码？",
-              style: TextStyle(fontSize: 14, color: Colors.white)),
         ),
       ),
     );
@@ -173,7 +117,7 @@ class _RegisterPage extends State<RegisterPage> {
             )));
   }
 
-  Widget buildEmailTextField() {
+  Widget buildUserIdTextField() {
     return TextFormField(
       controller: _emailController,
       style: const TextStyle(color: Colors.black),
@@ -187,37 +131,8 @@ class _RegisterPage extends State<RegisterPage> {
           return '请输入密码';
         }
         return null;
-        // (v) {
-        //   var emailReg = RegExp(
-        //       r"[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?");
-        //   if (!emailReg.hasMatch(v!)) {
-        //     return '请输入正确的邮箱地址';
-        //   }
-        // return null;
       },
-      onSaved: (v) => _email = v!,
+      onSaved: (v) => _userId = v!,
     );
-  }
-
-  Widget buildTitleLine() {
-    return Padding(
-        padding: const EdgeInsets.only(left: 12.0, top: 4.0),
-        child: Align(
-          alignment: Alignment.bottomLeft,
-          child: Container(
-            color: Colors.white,
-            width: 40,
-            height: 2,
-          ),
-        ));
-  }
-
-  Widget buildTitle() {
-    return const Padding(
-        padding: EdgeInsets.all(8),
-        child: Text(
-          'Login',
-          style: TextStyle(color: Colors.white),
-        ));
   }
 }

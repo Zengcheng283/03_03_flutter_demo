@@ -15,7 +15,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final GlobalKey _formKey = GlobalKey<FormState>();
-  late String _email, _password;
+  late String _userId, _password;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isObscure = true;
@@ -33,10 +33,7 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             children: [
               const SizedBox(height: 20), // 距离顶部一个工具栏的高度
-              // buildTitle(), // Login
-              // buildTitleLine(), // Login下面的下划线
-              // const SizedBox(height: 30),
-              buildEmailTextField(), // 输入邮箱
+              buildUserIdTextField(), // 输入用户名
               const SizedBox(height: 15),
               buildPasswordTextField(context), // 输入密码
               // buildForgetPasswordText(context), // 忘记密码
@@ -91,11 +88,6 @@ class _LoginPageState extends State<LoginPage> {
           onPressed: () async {
             // 表单校验通过才会继续执行
             if ((_formKey.currentState as FormState).validate()) {
-              // Dio().post("http://127.0.0.1:60000/login", data: {
-              //   "user": _emailController.text,
-              //   "psw": _passwordController.text
-              // });
-              // ignore: unrelated_type_equality_checks
               var res =
                   await login(_emailController.text, _passwordController.text);
 
@@ -172,7 +164,7 @@ class _LoginPageState extends State<LoginPage> {
             )));
   }
 
-  Widget buildEmailTextField() {
+  Widget buildUserIdTextField() {
     return TextFormField(
       controller: _emailController,
       style: const TextStyle(color: Colors.black),
@@ -186,15 +178,8 @@ class _LoginPageState extends State<LoginPage> {
           return '请输入密码';
         }
         return null;
-        // (v) {
-        //   var emailReg = RegExp(
-        //       r"[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?");
-        //   if (!emailReg.hasMatch(v!)) {
-        //     return '请输入正确的邮箱地址';
-        //   }
-        // return null;
       },
-      onSaved: (v) => _email = v!,
+      onSaved: (v) => _userId = v!,
     );
   }
 
